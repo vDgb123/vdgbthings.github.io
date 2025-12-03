@@ -1,13 +1,5 @@
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ɪɴꜰᴏᴍᴀᴛɪᴏɴꜱ</title>
-</head>
-</html>
 <head>
     <style>
-        /* Global Styles */
         body {
             margin: 0;
             height: 100vh;
@@ -20,7 +12,6 @@
             font-family: "Courier New", Courier, monospace;
         }
 
-        /* Button 1 (Center Button) */
         .button1 {
             margin: 0;
             font-weight: 400;
@@ -46,8 +37,7 @@
             backdrop-filter: brightness(1.15);
         }
 
-        /* Menu Buttons Base Style (common styles for 1, 2, 3) */
-        .menu-button, .menu-button-2, .menu-button-3 {
+        .menu-button, .menu-button-2, .menu-button-3, .menu-button-4 {
             position: absolute;
             left: 30px;
             display: block;
@@ -64,17 +54,15 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.7);
         }
         
-        /* Menu Button 1 Specific */
         .menu-button {
             top: 30px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* Keep original box-shadow for 1 */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         }
         .menu-button:hover {
             rotate: 260deg;
             scale: 1.5;
         }
 
-        /* Menu Button 2 Specific */
         .menu-button-2 {
             top: 90px;
         }
@@ -82,15 +70,26 @@
             scale: 1.5;
         }
 
-        /* Menu Button 3 Specific (New) */
         .menu-button-3 {
-            top: 150px; /* Position below menu-button-2 */
+            top: 150px;
         }
         .menu-button-3:hover {
             scale: 1.5;
         }
+        
+        .menu-button-4 {
+            top: 210px;
+        }
+        .menu-button-4:hover {
+            scale: 1.5;
+        }
+        
+        .menu-button img, .menu-button-3 img, .menu-button-4 img {
+            display: block;
+            height: 20px;
+            width: 20px;
+        }
 
-        /* Custom Dropdown Styles */
         .custom {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -157,7 +156,6 @@
             background: rgba(255, 255, 255, 0.4);
         }
 
-        /* Glass Navbar Styles */
         .glass-navbar {
             position: absolute;
             top: 30px;
@@ -193,7 +191,6 @@
         }
     </style>
     <style>
-        /* Mobile/Responsive Styles */
         @media (max-width: 600px) {
             .button1 {
                 padding: 60px 80px;
@@ -216,7 +213,14 @@
             }
 
             .menu-button-3 {
-                top: 160px; /* Adjusted position for mobile */
+                top: 160px;
+                left: 20px;
+                padding: 15px;
+                scale: 1.2;
+            }
+            
+            .menu-button-4 {
+                top: 230px;
                 left: 20px;
                 padding: 15px;
                 scale: 1.2;
@@ -246,17 +250,22 @@
         Gia Bao Space 💞
     </a>
     <a href="https://locket.cam/vdgb1805" class="menu-button">
-        ☄️
+        <img src="heart.png" height="20px" width="20px">
     </a>
     <a href="#" class="menu-button-2">
         🔇
     </a>
     <a href="https://vdgb123.github.io/vdgbsupport.github.io/" class="menu-button-3">
-        🌟 </a>
+        <img src="star.png" height="20px" width="20px">
+    </a>
+    <a href="https://vdgb123.github.io/loading/" class="menu-button-4">
+        <img src="mb4.png" height="20px" width="20px">
+    </a>
     <audio id="myAudio" src="Hẹn Hò Nhưng Không Yêu (Thazh x Đông Remix).mp3" preload="auto"></audio>
     <div class="custom-dropdown-container">
         <div class="dropdown-header custom" onclick="toggleDropdown()">
-            <span id="selected-text" data-value="none" data-bg="bruh.jpg">None</span> </div>
+            <span id="selected-text" data-value="none" data-bg="bruh.jpg">None</span>
+        </div>
 
         <ul class="dropdown-list" id="dropdown-options">
             <li data-value="volvo" data-bg="volvo.jpg">Volvo</li>
@@ -264,7 +273,8 @@
             <li data-value="audi" data-bg="audi.jpg">Audi</li>
             <li data-value="none" data-bg="bruh.jpg">None</li>
         </ul>
-        <input type="hidden" id="selected-value" name="car" value="none"> </div>
+        <input type="hidden" id="selected-value" name="car" value="none">
+    </div>
     <nav class="glass-navbar">
         <a href="https://github.com/vDgb123" class="nav-item"><img src="github.png" height="20px" width="20px"></a>
         <a href="https://coinmarketcap.com/all/views/all/" class="nav-item"><img src="tiktok.png" height="20px" width="20px"></a>
@@ -312,8 +322,8 @@
             const selectedBg = this.getAttribute('data-bg');
 
             selectedText.textContent = this.textContent;
-            selectedText.setAttribute('data-value', this.getAttribute('data-value')); // Update data-value
-            selectedText.setAttribute('data-bg', selectedBg); // Update data-bg
+            selectedText.setAttribute('data-value', this.getAttribute('data-value'));
+            selectedText.setAttribute('data-bg', selectedBg);
             hiddenInput.value = this.getAttribute('data-value');
             list.classList.remove('show');
 
@@ -329,11 +339,8 @@
         }
     });
 
-    // Initialize background based on default selected value ('None')
-    // This fixes the issue where the background was incorrectly set to 'volvo'
     const defaultBg = selectedText.getAttribute('data-bg');
     if (defaultBg) {
         setBackground(defaultBg);
     }
-
 </script>
