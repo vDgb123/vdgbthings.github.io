@@ -1,346 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gia Bao Space 💞</title>
     <style>
-        body {
+        :root {
+            --glass: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-accent: rgba(255, 255, 255, 0.4);
+            --text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             background-size: cover;
+            background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            font-family: "Courier New", Courier, monospace;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            transition: background-image 0.8s ease-in-out;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.3) 100%);
+            z-index: -1;
         }
 
         .button1 {
-            margin: 0;
-            font-weight: 400;
-            color: black;
-            backdrop-filter: blur(3px);
+            position: relative;
+            font-weight: 600;
+            color: #fff;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            border-left: 1px solid rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.05);
-            border-spacing: 20px;
-            font-size: 30px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-            border-radius: 20px;
-            padding: 100px 100px;
-            transition: 0.2s;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.7);
-            box-shadow: 0 0 20px white, 0 0 20px black;
+            border: 1px solid var(--glass-border);
+            background: var(--glass);
+            font-size: clamp(20px, 5vw, 32px);
+            padding: 60px 100px;
+            border-radius: 30px;
+            transition: var(--transition);
+            text-shadow: var(--text-shadow);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2), inset 0 0 20px rgba(255,255,255,0.1);
+            z-index: 5;
+            text-align: center;
         }
 
         .button1:hover {
-            transform: scale3d(1.2, 1.4, 1.2);
-            backdrop-filter: brightness(1.15);
+            transform: scale(1.1) translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 30px rgba(255,255,255,0.3);
+            letter-spacing: 2px;
         }
 
-        .menu-button, .menu-button-2, .menu-button-3, .menu-button-4 {
-            position: absolute;
+        .side-menu {
+            position: fixed;
             left: 30px;
-            display: block;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            border-left: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 10px 10px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-            transition: 0.2s;
-            border-radius: 120px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.7);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 100;
         }
-        
-        .menu-button {
+
+        .menu-item {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            font-size: 22px;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .menu-item img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px white);
+        }
+
+        .menu-item:hover {
+            transform: scale(1.2) translateX(10px);
+            background: var(--glass-accent);
+            border-color: #fff;
+        }
+
+        .glass-navbar {
+            position: fixed;
             top: 30px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-        }
-        .menu-button:hover {
-            rotate: 260deg;
-            scale: 1.5;
-        }
-
-        .menu-button-2 {
-            top: 90px;
-        }
-        .menu-button-2:hover {
-            scale: 1.5;
-        }
-
-        .menu-button-3 {
-            top: 150px;
-        }
-        .menu-button-3:hover {
-            scale: 1.5;
-        }
-        
-        .menu-button-4 {
-            top: 210px;
-        }
-        .menu-button-4:hover {
-            scale: 1.5;
-        }
-        
-        .menu-button img, .menu-button-3 img, .menu-button-4 img {
-            display: block;
-            height: 20px;
-            width: 20px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            padding: 10px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            z-index: 100;
         }
 
-        .custom {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            backdrop-filter: blur(5px);
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            border-left: 1px solid rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-            border-radius: 10px;
-            color: black;
-            font-size: 20px;
-            padding: 8px 20px;
-            cursor: pointer;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            text-shadow: 0 0 10px white, 0 0 10px white;
+        .nav-item {
+            padding: 8px;
+            border-radius: 12px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
         }
 
-        .custom:hover {
-            transform: scale(1.05);
+        .nav-item img {
+            width: 22px;
+            height: 22px;
+            transition: 0.3s;
+        }
+
+        .nav-item:hover {
+            background: var(--glass-accent);
+            transform: translateY(-3px);
         }
 
         .custom-dropdown-container {
-            position: absolute;
-            top: 65px;
-            right: 15px;
-            width: 114px;
-            scale: 1.1;
-            border-radius: 10px;
-            text-shadow: 0 0 10px white, 0 0 10px white;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+
+        .dropdown-header {
+            padding: 12px 25px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            color: #fff;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 160px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .dropdown-header:hover {
+            background: var(--glass-accent);
         }
 
         .dropdown-list {
             position: absolute;
-            top: 100%;
-            left: -36%;
-            width: 116%;
+            bottom: calc(100% + 15px);
+            right: 0;
+            width: 100%;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
             list-style: none;
-            padding: 2px 1px;
-            margin-top: 80px;
-            backdrop-filter: blur(5px);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-left: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
             overflow: hidden;
             display: none;
-            text-align: center;
-            z-index: 1;
-            color: black;
-            text-shadow: 0 0 10px white, 0 0 10px white;
+            animation: slideUp 0.4s ease forwards;
         }
 
-        .show {
-            display: block;
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-list.show { display: block; }
+
+        .dropdown-list li {
+            padding: 12px;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .dropdown-list li:hover {
-            background: rgba(255, 255, 255, 0.4);
+            background: var(--glass-accent);
+            padding-left: 20px;
         }
 
-        .glass-navbar {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            display: flex;
-            padding: 5px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            border-left: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-            border-radius: 15px;
-            z-index: 10;
-        }
-
-        .nav-item {
-            color: black;
-            text-decoration: none;
-            padding: 8px 15px;
-            margin: 0 5px;
-            font-size: 20px;
-            font-weight: 1000;
-            transition: 0.3s;
-            border-radius: 15px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.7);
-        }
-
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.05);
-            border: 1px solid white;
-        }
-    </style>
-    <style>
-        @media (max-width: 600px) {
-            .button1 {
-                padding: 60px 80px;
-                font-size: 28px;
-                box-shadow: 0 0 25px white, 0 0 25px black;
+        @media (max-width: 768px) {
+            .side-menu {
+                left: 15px;
+                gap: 15px;
             }
-
-            .menu-button {
-                top: 20px;
-                left: 20px;
-                padding: 15px;
-                scale: 1.2;
-            }
-
-            .menu-button-2 {
-                top: 90px;
-                left: 20px;
-                padding: 15px;
-                scale: 1.2;
-            }
-
-            .menu-button-3 {
-                top: 160px;
-                left: 20px;
-                padding: 15px;
-                scale: 1.2;
-            }
-            
-            .menu-button-4 {
-                top: 230px;
-                left: 20px;
-                padding: 15px;
-                scale: 1.2;
-            }
-
             .glass-navbar {
                 top: 15px;
                 right: 15px;
-                padding: 2px 10px;
-                scale: 1;
+                padding: 5px 10px;
             }
-
-            .nav-item {
-                padding: 5px 8px;
+            .button1 {
+                padding: 40px 60px;
             }
-
             .custom-dropdown-container {
-                top: 70px;
-                right: 15px;
-                scale: 1;
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
 </head>
 <body>
+
     <a href="https://guns.lol/vdgb_" target="_blank" class="button1">
         Gia Bao Space 💞
     </a>
-    <a href="https://locket.cam/vdgb1805" class="menu-button">
-        <img src="heart.png" height="20px" width="20px">
-    </a>
-    <a href="#" class="menu-button-2">
-        🔇
-    </a>
-    <a href="https://vdgb123.github.io/vdgbsupport.github.io/" class="menu-button-3">
-        <img src="star.png" height="20px" width="20px">
-    </a>
-    <a href="https://vdgb123.github.io/loading/" class="menu-button-4">
-        <img src="mb4.png" height="20px" width="20px">
-    </a>
-    <audio id="myAudio" src="Hẹn Hò Nhưng Không Yêu (Thazh x Đông Remix).mp3" preload="auto"></audio>
-    <div class="custom-dropdown-container">
-        <div class="dropdown-header custom" onclick="toggleDropdown()">
-            <span id="selected-text" data-value="none" data-bg="bruh.jpg">None</span>
-        </div>
 
-        <ul class="dropdown-list" id="dropdown-options">
-            <li data-value="volvo" data-bg="volvo.jpg">Volvo</li>
-            <li data-value="mercedes" data-bg="mercedes.jpg">Mercedes</li>
-            <li data-value="audi" data-bg="audi.jpg">Audi</li>
-            <li data-value="none" data-bg="bruh.jpg">None</li>
-        </ul>
-        <input type="hidden" id="selected-value" name="car" value="none">
+    <div class="side-menu">
+        <a href="https://locket.cam/vdgb1805" class="menu-item" title="Locket">
+            <img src="heart.png" alt="heart">
+        </a>
+        <a href="#" class="menu-item" id="toggleMusic">
+            🔇
+        </a>
+        <a href="https://vdgb123.github.io/vdgbsupport.github.io/" class="menu-item" title="Support">
+            <img src="star.png" alt="star">
+        </a>
+        <a href="https://vdgb123.github.io/loading/" class="menu-item" title="Loading">
+            <img src="mb4.png" alt="mb4">
+        </a>
     </div>
+
     <nav class="glass-navbar">
-        <a href="https://github.com/vDgb123" class="nav-item"><img src="github.png" height="20px" width="20px"></a>
-        <a href="https://www.tiktok.com/@dgbinhere?is_from_webapp=1&sender_device=pc" class="nav-item"><img src="tiktok.png" height="20px" width="20px"></a>
-        <a href="https://discord.com/users/1044501093486436404" class="nav-item"><img src="dc.png" height="20px" width="20px"></a>
-        <a href="https://open.spotify.com/playlist/37i9dQZF1E4pcdtow1yIdx?si=99xxZZKcQhyyftf43OemMg" class="nav-item"><img src="spotify.png" height="20px" width="20px"></a>
-        <a href="https://www.facebook.com/dogobo1805/" class="nav-item"><img src="fb.png" height="20px" width="20px"></a>
+        <a href="https://github.com/vDgb123" class="nav-item"><img src="github.png" alt="github"></a>
+        <a href="https://www.tiktok.com/@dgbinhere" class="nav-item"><img src="tiktok.png" alt="tiktok"></a>
+        <a href="https://discord.com/users/1044501093486436404" class="nav-item"><img src="dc.png" alt="discord"></a>
+        <a href="https://open.spotify.com/playlist/37i9dQZF1E4pcdtow1yIdx?si=99xxZZKcQhyyftf43OemMg" class="nav-item"><img src="spotify.png" alt="spotify"></a>
+        <a href="https://www.facebook.com/dogobo1805/" class="nav-item"><img src="fb.png" alt="facebook"></a>
     </nav>
-</body>
-<script>
-    const header = document.querySelector('.dropdown-header');
-    const list = document.getElementById('dropdown-options');
-    const selectedText = document.getElementById('selected-text');
-    const hiddenInput = document.getElementById('selected-value');
-    const body = document.body;
-    const audio = document.getElementById('myAudio');
-    const musicButton = document.querySelector('.menu-button-2');
-    let isPlaying = false;
 
-    function setBackground(imageUrl) {
-        body.style.backgroundImage = `url(${imageUrl})`;
-        body.style.backgroundSize = 'cover';
-        body.style.backgroundRepeat = 'no-repeat';
-        body.style.backgroundAttachment = 'fixed';
-    }
+    <div class="custom-dropdown-container">
+        <div class="dropdown-header" onclick="toggleDropdown()">
+            <span id="selected-text" data-bg="bruh.jpg">None</span>
+        </div>
+        <ul class="dropdown-list" id="dropdown-options">
+            <li data-bg="volvo.jpg">Volvo</li>
+            <li data-bg="mercedes.jpg">Mercedes</li>
+            <li data-bg="audi.jpg">Audi</li>
+            <li data-bg="bruh.jpg">None</li>
+        </ul>
+    </div>
 
-    musicButton.addEventListener('click', function(e) {
-        e.preventDefault();
+    <audio id="myAudio" src="Hẹn Hò Nhưng Không Yêu (Thazh x Đông Remix).mp3" loop></audio>
 
-        if (isPlaying) {
-            audio.pause();
-            musicButton.textContent = '🔇';
-        } else {
-            audio.play();
-            musicButton.textContent = '🔊';
+    <script>
+        const audio = document.getElementById('myAudio');
+        const musicBtn = document.getElementById('toggleMusic');
+        const list = document.getElementById('dropdown-options');
+        const selectedText = document.getElementById('selected-text');
+        let isPlaying = false;
+
+        function setBackground(url) {
+            document.body.style.backgroundImage = `url('${url}')`;
         }
-        isPlaying = !isPlaying;
-    });
 
-    function toggleDropdown() {
-        list.classList.toggle('show');
-    }
+        musicBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.textContent = '🔇';
+            } else {
+                audio.play();
+                musicBtn.textContent = '🔊';
+            }
+            isPlaying = !isPlaying;
+        });
 
-    list.querySelectorAll('li').forEach(item => {
-        item.addEventListener('click', function() {
-            const selectedBg = this.getAttribute('data-bg');
+        function toggleDropdown() {
+            list.classList.toggle('show');
+        }
 
-            selectedText.textContent = this.textContent;
-            selectedText.setAttribute('data-value', this.getAttribute('data-value'));
-            selectedText.setAttribute('data-bg', selectedBg);
-            hiddenInput.value = this.getAttribute('data-value');
-            list.classList.remove('show');
+        list.querySelectorAll('li').forEach(item => {
+            item.addEventListener('click', function() {
+                const bg = this.getAttribute('data-bg');
+                selectedText.textContent = this.textContent;
+                setBackground(bg);
+                list.classList.remove('show');
+            });
+        });
 
-            if (selectedBg) {
-                setBackground(selectedBg);
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-dropdown-container')) {
+                list.classList.remove('show');
             }
         });
-    });
 
-    document.addEventListener('click', function(e) {
-        if (!header.contains(e.target) && !list.contains(e.target)) {
-            list.classList.remove('show');
-        }
-    });
-
-    const defaultBg = selectedText.getAttribute('data-bg');
-    if (defaultBg) {
-        setBackground(defaultBg);
-    }
-</script>
+        setBackground(selectedText.getAttribute('data-bg'));
+    </script>
+</body>
+</html>
