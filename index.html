@@ -2,21 +2,27 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Gia Bao Space 💞</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --glass-accent: rgba(255, 255, 255, 0.4);
-            --text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-solid: rgba(20, 20, 20, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hover: rgba(255, 255, 255, 0.15);
+            --text-glow: 0 0 20px rgba(255, 255, 255, 0.8);
+            --box-glow: 0 0 40px rgba(255, 255, 255, 0.15);
+            --transition-smooth: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --font-main: 'Plus Jakarta Sans', sans-serif;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -24,149 +30,223 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: #050505;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-main);
             overflow: hidden;
-            transition: background-image 0.8s ease-in-out;
+            color: #ffffff;
         }
 
-        body::before {
-            content: '';
+        .bg-overlay {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.3) 100%);
-            z-index: -1;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+            backdrop-filter: blur(8px);
+            z-index: 1;
+            transition: backdrop-filter 0.8s ease;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 10;
+            animation: popIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .button1 {
             position: relative;
-            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
             color: #fff;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             text-decoration: none;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
             border: 1px solid var(--glass-border);
-            background: var(--glass);
-            font-size: clamp(20px, 5vw, 32px);
-            padding: 60px 100px;
-            border-radius: 30px;
-            transition: var(--transition);
-            text-shadow: var(--text-shadow);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2), inset 0 0 20px rgba(255,255,255,0.1);
-            z-index: 5;
-            text-align: center;
+            font-size: clamp(24px, 6vw, 42px);
+            padding: clamp(40px, 8vw, 70px) clamp(60px, 12vw, 120px);
+            border-radius: 40px;
+            letter-spacing: 1px;
+            transition: var(--transition-bounce);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .button1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg);
+            transition: 0.7s ease;
         }
 
         .button1:hover {
-            transform: scale(1.1) translateY(-10px);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 30px rgba(255,255,255,0.3);
-            letter-spacing: 2px;
+            transform: scale(1.05) translateY(-5px);
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6), var(--box-glow), inset 0 1px 0 rgba(255,255,255,0.4);
+            text-shadow: var(--text-glow);
+            letter-spacing: 3px;
         }
 
-        .side-menu {
+        .button1:hover::before {
+            left: 200%;
+        }
+
+        .button1:active {
+            transform: scale(0.98);
+        }
+
+        .glass-dock {
             position: fixed;
-            left: 30px;
+            background: var(--glass-solid);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid var(--glass-border);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            animation: slideIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .dock-vertical {
+            left: 40px;
             top: 50%;
             transform: translateY(-50%);
-            display: flex;
             flex-direction: column;
-            gap: 20px;
-            z-index: 100;
+            padding: 20px 15px;
+            border-radius: 40px;
+            gap: 25px;
         }
 
-        .menu-item {
-            width: 55px;
-            height: 55px;
+        .dock-horizontal {
+            top: 40px;
+            right: 40px;
+            flex-direction: row;
+            padding: 15px 25px;
+            border-radius: 40px;
+            gap: 20px;
+        }
+
+        .dock-item {
+            position: relative;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 18px;
-            font-size: 22px;
-            transition: var(--transition);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: transparent;
+            border-radius: 50%;
+            transition: var(--transition-bounce);
+            color: #fff;
+            font-size: 24px;
         }
 
-        .menu-item img {
-            width: 24px;
-            height: 24px;
+        .dock-item img {
+            width: 26px;
+            height: 26px;
             object-fit: contain;
-            filter: drop-shadow(0 0 5px white);
+            transition: var(--transition-bounce);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
-        .menu-item:hover {
-            transform: scale(1.2) translateX(10px);
-            background: var(--glass-accent);
-            border-color: #fff;
-        }
-
-        .glass-navbar {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            display: flex;
-            gap: 10px;
-            padding: 10px 20px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            z-index: 100;
-        }
-
-        .nav-item {
-            padding: 8px;
+        .dock-item::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 14px;
             border-radius: 12px;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
         }
 
-        .nav-item img {
-            width: 22px;
-            height: 22px;
-            transition: 0.3s;
+        .dock-vertical .dock-item::after {
+            left: calc(100% + 20px);
+            transform: translateX(-10px);
         }
 
-        .nav-item:hover {
-            background: var(--glass-accent);
-            transform: translateY(-3px);
+        .dock-horizontal .dock-item::after {
+            top: calc(100% + 20px);
+            transform: translateY(-10px);
+        }
+
+        .dock-item:hover {
+            background: var(--glass-hover);
+            transform: scale(1.15);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        .dock-item:hover img {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
+        }
+
+        .dock-item:hover::after {
+            opacity: 1;
+            transform: translate(0);
         }
 
         .custom-dropdown-container {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 40px;
+            right: 40px;
             z-index: 100;
+            animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .dropdown-header {
-            padding: 12px 25px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
+            padding: 16px 30px;
+            background: var(--glass-solid);
+            backdrop-filter: blur(30px) saturate(200%);
             border: 1px solid var(--glass-border);
-            border-radius: 15px;
+            border-radius: 30px;
             color: #fff;
-            font-weight: 500;
+            font-weight: 700;
+            font-size: 16px;
             cursor: pointer;
-            transition: var(--transition);
-            min-width: 160px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: var(--transition-bounce);
+            min-width: 180px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
 
-        .dropdown-header:hover {
-            background: var(--glass-accent);
+        .dropdown-header::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            transform: rotate(45deg);
+            transition: var(--transition-smooth);
+        }
+
+        .custom-dropdown-container.active .dropdown-header {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .custom-dropdown-container.active .dropdown-header::after {
+            transform: rotate(-135deg);
         }
 
         .dropdown-list {
@@ -174,91 +254,165 @@
             bottom: calc(100% + 15px);
             right: 0;
             width: 100%;
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(20px);
+            background: var(--glass-solid);
+            backdrop-filter: blur(30px);
             border: 1px solid var(--glass-border);
-            border-radius: 15px;
+            border-radius: 20px;
             list-style: none;
             overflow: hidden;
-            display: none;
-            animation: slideUp 0.4s ease forwards;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .custom-dropdown-container.active .dropdown-list {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
-
-        .dropdown-list.show { display: block; }
 
         .dropdown-list li {
-            padding: 12px;
-            color: #fff;
-            text-align: center;
+            padding: 15px 25px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 600;
+            font-size: 15px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: var(--transition-smooth);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
+        .dropdown-list li:last-child {
+            border-bottom: none;
+        }
+
         .dropdown-list li:hover {
-            background: var(--glass-accent);
-            padding-left: 20px;
+            color: #fff;
+            background: var(--glass-hover);
+            padding-left: 30px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(-50%) translateX(-50px); }
+            100% { opacity: 1; transform: translateY(-50%) translateX(0); }
+        }
+
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1024px) {
+            .dock-horizontal { top: 20px; right: 20px; padding: 10px 15px; gap: 10px; }
+            .dock-vertical { left: 20px; }
+            .dock-item { width: 45px; height: 45px; }
         }
 
         @media (max-width: 768px) {
-            .side-menu {
-                left: 15px;
-                gap: 15px;
+            .bg-overlay { backdrop-filter: blur(12px); }
+            
+            .dock-vertical {
+                left: 50%;
+                top: auto;
+                bottom: 30px;
+                transform: translateX(-50%);
+                flex-direction: row;
+                width: calc(100% - 40px);
+                max-width: 400px;
+                justify-content: space-evenly;
+                padding: 15px 10px;
+                animation: mobileSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             }
-            .glass-navbar {
-                top: 15px;
-                right: 15px;
-                padding: 5px 10px;
+
+            .dock-horizontal {
+                top: 20px;
+                right: 50%;
+                transform: translateX(50%);
+                width: max-content;
+                padding: 10px 20px;
+                animation: mobileSlideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             }
-            .button1 {
-                padding: 40px 60px;
-            }
+
             .custom-dropdown-container {
-                bottom: 20px;
-                right: 20px;
+                bottom: 110px;
+                right: 50%;
+                transform: translateX(50%);
+                animation: fadeIn 1s ease forwards;
             }
+
+            .dropdown-list {
+                bottom: auto;
+                top: calc(100% + 15px);
+            }
+
+            .dock-item::after { display: none; }
+        }
+
+        @keyframes mobileSlideUp {
+            0% { opacity: 0; transform: translate(-50%, 50px); }
+            100% { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        @keyframes mobileSlideDown {
+            0% { opacity: 0; transform: translate(50%, -50px); }
+            100% { opacity: 1; transform: translate(50%, 0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <a href="https://guns.lol/vdgb_" target="_blank" class="button1">
-        Gia Bao Space 💞
-    </a>
+    <div class="bg-overlay" id="bgOverlay"></div>
 
-    <div class="side-menu">
-        <a href="https://locket.cam/vdgb1805" class="menu-item" title="Locket">
-            <img src="heart.png" alt="heart">
+    <nav class="glass-dock dock-horizontal">
+        <a href="https://github.com/vDgb123" class="dock-item" data-tooltip="GitHub"><img src="github.png" alt="github" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
+        <a href="https://www.tiktok.com/@dgbinhere" class="dock-item" data-tooltip="TikTok"><img src="tiktok.png" alt="tiktok" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
+        <a href="https://discord.com/users/1044501093486436404" class="dock-item" data-tooltip="Discord"><img src="dc.png" alt="discord" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
+        <a href="https://open.spotify.com/playlist/37i9dQZF1E4pcdtow1yIdx?si=99xxZZKcQhyyftf43OemMg" class="dock-item" data-tooltip="Spotify"><img src="spotify.png" alt="spotify" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
+        <a href="https://www.facebook.com/dogobo1805/" class="dock-item" data-tooltip="Facebook"><img src="fb.png" alt="facebook" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
+    </nav>
+
+    <div class="glass-dock dock-vertical">
+        <a href="https://locket.cam/vdgb1805" class="dock-item" data-tooltip="Locket">
+            <img src="heart.png" alt="heart" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'">
         </a>
-        <a href="#" class="menu-item" id="toggleMusic">
+        <a href="#" class="dock-item" id="toggleMusic" data-tooltip="Play Audio">
             🔇
         </a>
-        <a href="https://vdgb123.github.io/vdgbsupport.github.io/" class="menu-item" title="Support">
-            <img src="star.png" alt="star">
+        <a href="https://vdgb123.github.io/vdgbsupport.github.io/" class="dock-item" data-tooltip="Support">
+            <img src="star.png" alt="star" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'">
         </a>
-        <a href="https://vdgb123.github.io/loading/" class="menu-item" title="Loading">
-            <img src="mb4.png" alt="mb4">
+        <a href="https://vdgb123.github.io/loading/" class="dock-item" data-tooltip="Loading">
+            <img src="mb4.png" alt="mb4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'">
         </a>
     </div>
 
-    <nav class="glass-navbar">
-        <a href="https://github.com/vDgb123" class="nav-item"><img src="github.png" alt="github"></a>
-        <a href="https://www.tiktok.com/@dgbinhere" class="nav-item"><img src="tiktok.png" alt="tiktok"></a>
-        <a href="https://discord.com/users/1044501093486436404" class="nav-item"><img src="dc.png" alt="discord"></a>
-        <a href="https://open.spotify.com/playlist/37i9dQZF1E4pcdtow1yIdx?si=99xxZZKcQhyyftf43OemMg" class="nav-item"><img src="spotify.png" alt="spotify"></a>
-        <a href="https://www.facebook.com/dogobo1805/" class="nav-item"><img src="fb.png" alt="facebook"></a>
-    </nav>
+    <div class="main-content">
+        <a href="https://guns.lol/vdgb_" target="_blank" class="button1">
+            Gia Bao Space 💞
+        </a>
+    </div>
 
-    <div class="custom-dropdown-container">
-        <div class="dropdown-header" onclick="toggleDropdown()">
-            <span id="selected-text" data-bg="bruh.jpg">None</span>
+    <div class="custom-dropdown-container" id="dropdownContainer">
+        <div class="dropdown-header" id="dropdownHeader">
+            <span id="selectedText" data-bg="bruh.jpg">None</span>
         </div>
-        <ul class="dropdown-list" id="dropdown-options">
+        <ul class="dropdown-list" id="dropdownList">
             <li data-bg="volvo.jpg">Volvo</li>
             <li data-bg="mercedes.jpg">Mercedes</li>
             <li data-bg="audi.jpg">Audi</li>
@@ -266,51 +420,70 @@
         </ul>
     </div>
 
-    <audio id="myAudio" src="Hẹn Hò Nhưng Không Yêu (Thazh x Đông Remix).mp3" loop></audio>
+    <audio id="bgAudio" src="Hẹn Hò Nhưng Không Yêu (Thazh x Đông Remix).mp3" loop></audio>
 
     <script>
-        const audio = document.getElementById('myAudio');
-        const musicBtn = document.getElementById('toggleMusic');
-        const list = document.getElementById('dropdown-options');
-        const selectedText = document.getElementById('selected-text');
-        let isPlaying = false;
+        const bodyElement = document.body;
+        const overlay = document.getElementById('bgOverlay');
+        const audioNode = document.getElementById('bgAudio');
+        const audioBtn = document.getElementById('toggleMusic');
+        const dropdownWrap = document.getElementById('dropdownContainer');
+        const dropdownHead = document.getElementById('dropdownHeader');
+        const dropdownItems = document.querySelectorAll('#dropdownList li');
+        const activeText = document.getElementById('selectedText');
 
-        function setBackground(url) {
-            document.body.style.backgroundImage = `url('${url}')`;
-        }
+        let musicPlaying = false;
 
-        musicBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (isPlaying) {
-                audio.pause();
-                musicBtn.textContent = '🔇';
+        const executeBgChange = (imgUrl) => {
+            const tempImg = new Image();
+            tempImg.src = imgUrl;
+            tempImg.onload = () => {
+                overlay.style.backdropFilter = 'blur(20px)';
+                setTimeout(() => {
+                    bodyElement.style.backgroundImage = `url('${imgUrl}')`;
+                    overlay.style.backdropFilter = 'blur(8px)';
+                }, 400);
+            };
+        };
+
+        audioBtn.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            if (musicPlaying) {
+                audioNode.pause();
+                audioBtn.textContent = '🔇';
+                audioBtn.setAttribute('data-tooltip', 'Play Audio');
             } else {
-                audio.play();
-                musicBtn.textContent = '🔊';
+                audioNode.play().catch(e => console.warn("Autoplay blocked:", e));
+                audioBtn.textContent = '🔊';
+                audioBtn.setAttribute('data-tooltip', 'Pause Audio');
             }
-            isPlaying = !isPlaying;
+            musicPlaying = !musicPlaying;
         });
 
-        function toggleDropdown() {
-            list.classList.toggle('show');
-        }
+        dropdownHead.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            dropdownWrap.classList.toggle('active');
+        });
 
-        list.querySelectorAll('li').forEach(item => {
-            item.addEventListener('click', function() {
-                const bg = this.getAttribute('data-bg');
-                selectedText.textContent = this.textContent;
-                setBackground(bg);
-                list.classList.remove('show');
+        dropdownItems.forEach(node => {
+            node.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                const targetBg = node.getAttribute('data-bg');
+                activeText.textContent = node.textContent;
+                activeText.setAttribute('data-bg', targetBg);
+                executeBgChange(targetBg);
+                dropdownWrap.classList.remove('active');
             });
         });
 
-        window.addEventListener('click', (e) => {
-            if (!e.target.closest('.custom-dropdown-container')) {
-                list.classList.remove('show');
+        document.addEventListener('click', (ev) => {
+            if (!dropdownWrap.contains(ev.target)) {
+                dropdownWrap.classList.remove('active');
             }
         });
 
-        setBackground(selectedText.getAttribute('data-bg'));
+        const initBg = activeText.getAttribute('data-bg');
+        if (initBg) executeBgChange(initBg);
     </script>
 </body>
 </html>
