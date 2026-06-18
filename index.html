@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Gia Bao Space 💞</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Light Glassmorphism Variables */
-            --glass-bg: rgba(255, 255, 255, 0.2); /* Frosted glass white */
-            --glass-solid: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --glass-hover: rgba(255, 255, 255, 0.5);
-            --text-glow: 0 0 10px rgba(255, 255, 255, 0.4);
-            --box-glow: 0 0 30px rgba(255, 255, 255, 0.2);
-            --transition-smooth: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --bg-base: #020204;
+            --glass-core: rgba(10, 10, 12, 0.45);
+            --glass-plate: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bright: rgba(255, 255, 255, 0.16);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.55);
+            --neon-glow: rgba(138, 92, 246, 0.4);
+            --neon-accent: #8a5cf6;
+            --font-stack: 'Plus Jakarta Sans', sans-serif;
+            --spring: linear(0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1.004 83.8%, 1);
+            --bezier: cubic-bezier(0.15, 1, 0.3, 1);
         }
 
         * {
@@ -24,472 +26,825 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            font-family: var(--font-stack);
         }
 
         body {
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #050505; /* Base still dark for image pop */
+            width: 100vw;
+            background-color: var(--bg-base);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
-            font-family: var(--font-main);
             overflow: hidden;
-            color: #000000; /* Default text dark */
+            display: flex;
+            flex-direction: column;
+            color: var(--text-main);
+            perspective: 1200px;
+        }
+
+        #fluid-mesh {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
         }
 
         .bg-overlay {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.6) 100%);
-            backdrop-filter: blur(8px);
+            background: radial-gradient(circle at 50% 30%, rgba(138, 92, 246, 0.12) 0%, rgba(1, 1, 3, 0.85) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             z-index: 1;
-            transition: backdrop-filter 0.8s ease;
+            transition: all 1.2s var(--bezier);
         }
 
-        .main-content {
-            position: relative;
-            z-index: 10;
-            animation: popIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .island-matrix {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            animation: slideFromTop 1s var(--spring) forwards;
         }
 
-        .button1 {
-            position: relative;
-            display: inline-flex;
+        .capsule-island {
+            background: var(--glass-core);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 6px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: all 0.4s var(--bezier);
+            cursor: pointer;
+            overflow: hidden;
+            min-width: 150px;
+            height: 46px;
+        }
+
+        .capsule-island:hover {
+            background: rgba(15, 15, 20, 0.6);
+            border-color: var(--glass-bright);
+        }
+
+        .island-vector {
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            color: #fff;
-            text-decoration: none;
-            /* Update to Light Glassmorphism */
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(200%);
-            -webkit-backdrop-filter: blur(25px) saturate(200%);
-            border: 1px solid var(--glass-border);
-            font-size: clamp(24px, 6vw, 42px);
-            padding: clamp(40px, 8vw, 70px) clamp(60px, 12vw, 120px);
-            border-radius: 40px;
-            letter-spacing: 1px;
-            transition: var(--transition-bounce);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
-            overflow: hidden;
-            animation: float 6s ease-in-out infinite;
+            width: 20px;
+            height: 20px;
+            color: var(--text-main);
         }
 
-        .button1::before {
+        .island-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+
+        .island-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            margin-top: 10px;
+            background: rgba(8, 8, 12, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 22px;
+            padding: 6px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px) scale(0.96);
+            transition: all 0.35s var(--spring);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
+            transform-origin: top center;
+        }
+
+        .island-matrix.active .island-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .island-matrix.active .capsule-island {
+            border-radius: 20px;
+            background: rgba(20, 20, 28, 0.85);
+        }
+
+        .menu-row {
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-row:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            transform: translateX(3px);
+        }
+
+        .menu-row::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            transition: all 0.25s ease;
+        }
+
+        .menu-row:hover::before {
+            background: var(--neon-accent);
+            box-shadow: 0 0 8px var(--neon-glow);
+        }
+
+        .trigger-audio {
+            background: var(--glass-core);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.35s var(--bezier);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            color: var(--text-main);
+        }
+
+        .trigger-audio:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: scale(1.04);
+            border-color: var(--glass-bright);
+        }
+
+        .trigger-audio.active-track {
+            color: var(--neon-accent);
+            border-color: var(--neon-glow);
+            animation: audioPulse 1.8s infinite;
+        }
+
+        .workspace-stage {
+            position: relative;
+            z-index: 10;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1600px;
+        }
+
+        .magnetic-field {
+            padding: 50px;
+            display: inline-block;
+        }
+
+        .portal-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 44px 88px;
+            border-radius: 36px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 0 24px rgba(255,255,255,0.01);
+            transform-style: preserve-3d;
+            transition: transform 0.08s;
+            animation: viewportEntrance 1.4s var(--spring) forwards;
+        }
+
+        .portal-card::before {
             content: '';
             position: absolute;
+            inset: -1px;
+            border-radius: 36px;
+            background: linear-gradient(45deg, transparent, var(--neon-glow), transparent);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .portal-card:hover::before {
+            opacity: 1;
+        }
+
+        .portal-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            transform: translateZ(60px);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-shadow: 0 15px 30px rgba(0,0,0,0.6);
+        }
+
+        .portal-mirror {
+            position: absolute;
             top: 0;
-            left: -100%;
-            width: 50%;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: skewX(-20deg);
-            transition: 0.7s ease;
+            border-radius: 36px;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.22), transparent 70%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            mix-blend-mode: overlay;
         }
 
-        .button1:hover {
-            transform: scale(1.05) translateY(-5px);
-            background: var(--glass-hover);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.5), var(--box-glow), inset 0 1px 0 rgba(255,255,255,0.6);
-            text-shadow: var(--text-glow);
-            letter-spacing: 3px;
+        .panel-dock-left {
+            position: fixed;
+            left: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            animation: slideFromLeft 1.2s var(--spring) forwards;
         }
 
-        .button1:hover::before {
-            left: 200%;
-        }
-
-        .button1:active {
-            transform: scale(0.98);
+        .panel-dock-bottom {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            animation: slideFromBottom 1.2s var(--spring) forwards;
         }
 
         .glass-dock {
-            position: fixed;
-            /* Update to Light Glassmorphism */
-            background: var(--glass-solid);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
-            border: 1px solid var(--glass-border);
-            z-index: 100;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            animation: slideIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            background: var(--glass-core);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+            padding: 10px;
         }
 
         .dock-vertical {
-            left: 40px;
-            top: 50%;
-            transform: translateY(-50%);
             flex-direction: column;
-            padding: 20px 15px;
-            border-radius: 40px;
-            gap: 25px;
+            gap: 12px;
+            border-radius: 26px;
         }
 
         .dock-horizontal {
-            top: 40px;
-            right: 40px;
             flex-direction: row;
-            padding: 15px 25px;
-            border-radius: 40px;
-            gap: 20px; /* Space between top nav icons */
+            align-items: flex-end;
+            gap: 10px;
+            border-radius: 28px;
         }
 
-        .dock-item {
+        .dock-node {
             position: relative;
-            width: 50px;
-            height: 50px;
+            width: 52px;
+            height: 52px;
+            border-radius: 15px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01));
+            border: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            background: transparent;
-            border-radius: 50%;
-            transition: var(--transition-bounce);
-            /* Side Nav Icons will need darker coloring for light glass, handled in SVG/Image */
-            font-size: 24px;
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.4, 1);
+            transform-origin: bottom center;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+            color: #ffffff;
         }
 
-        .dock-item img {
-            width: 26px;
-            height: 26px;
-            object-fit: contain;
-            transition: var(--transition-bounce);
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+        .dock-node svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            transition: all 0.25s ease;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4));
         }
 
-        .dock-item::after {
-            content: attr(data-tooltip);
+        .dock-node.stroke-only svg {
+            fill: none;
+        }
+
+        .dock-node .popup-tag {
             position: absolute;
-            background: rgba(0,0,0,0.8);
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 8px 14px;
-            border-radius: 12px;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition-smooth);
-            white-space: nowrap;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-
-        .dock-vertical .dock-item::after {
-            left: calc(100% + 20px);
-            transform: translateX(-10px);
-        }
-
-        .dock-horizontal .dock-item::after {
-            top: calc(100% + 20px);
-            transform: translateY(-10px);
-        }
-
-        .dock-item:hover {
-            background: var(--glass-hover);
-            transform: scale(1.15);
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        .dock-item:hover img {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
-        }
-
-        .dock-item:hover::after {
-            opacity: 1;
-            transform: translate(0);
-        }
-
-        .custom-dropdown-container {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            z-index: 100;
-            animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .dropdown-header {
-            padding: 16px 30px;
-            /* Update to Light Glassmorphism */
-            background: var(--glass-solid);
-            backdrop-filter: blur(30px) saturate(200%);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            color: #000000;
+            background: rgba(10, 10, 14, 0.92);
+            color: #ffffff;
+            padding: 5px 11px;
+            border-radius: 7px;
+            font-size: 11px;
             font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            transition: var(--transition-bounce);
-            min-width: 180px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .dropdown-header::after {
-            content: '';
-            width: 10px;
-            height: 10px;
-            border-right: 2px solid #000000;
-            border-bottom: 2px solid #000000;
-            transform: rotate(45deg);
-            transition: var(--transition-smooth);
-        }
-
-        .custom-dropdown-container.active .dropdown-header {
-            background: rgba(255,255,255,0.3);
-            border-color: rgba(255,255,255,0.5);
-        }
-
-        .custom-dropdown-container.active .dropdown-header::after {
-            transform: rotate(-135deg);
-        }
-
-        .dropdown-list {
-            position: absolute;
-            bottom: calc(100% + 15px);
-            right: 0;
-            width: 100%;
-            /* Update to Light Glassmorphism */
-            background: var(--glass-solid);
-            backdrop-filter: blur(30px);
+            letter-spacing: 0.4px;
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            list-style: none;
-            overflow: hidden;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(20px);
-            transition: var(--transition-smooth);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: all 0.25s var(--spring);
+            white-space: nowrap;
+            pointer-events: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
-        .custom-dropdown-container.active .dropdown-list {
+        .dock-horizontal .dock-node .popup-tag {
+            top: -46px;
+            transform: translateY(8px) scale(0.9);
+        }
+
+        .dock-vertical .dock-node .popup-tag {
+            left: 68px;
+            top: 50%;
+            transform: translateY(-50%) translateX(-8px) scale(0.9);
+        }
+
+        .dock-node:hover .popup-tag {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0);
         }
 
-        .dropdown-list li {
-            padding: 15px 25px;
-            color: rgba(0,0,0,0.7);
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+        .dock-horizontal .dock-node:hover .popup-tag {
+            transform: translateY(0) scale(1);
         }
 
-        .dropdown-list li:last-child {
-            border-bottom: none;
+        .dock-vertical .dock-node:hover .popup-tag {
+            transform: translateY(-50%) translateX(0) scale(1);
         }
 
-        .dropdown-list li:hover {
-            color: #000000;
-            background: var(--glass-hover);
-            padding-left: 30px;
+        .dock-node::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            opacity: 0;
+            transition: all 0.25s ease;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        .dock-horizontal .dock-node::after {
+            bottom: -5px;
         }
 
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.85); }
-            100% { opacity: 1; transform: scale(1); }
+        .dock-vertical .dock-node::after {
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(-50%) translateX(-50px); }
-            100% { opacity: 1; transform: translateY(-50%) translateX(0); }
+        .dock-node:hover::after {
+            opacity: 1;
+            background: var(--text-main);
+            box-shadow: 0 0 8px #ffffff;
         }
 
-        @keyframes slideUpFade {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .split-bar {
+            width: 1px;
+            height: 36px;
+            background: var(--glass-border);
+            margin: 0 3px;
+            align-self: center;
         }
 
-        @media (max-width: 1024px) {
-            .dock-horizontal { top: 20px; right: 20px; padding: 10px 15px; gap: 10px; }
-            .dock-vertical { left: 20px; }
-            .dock-item { width: 45px; height: 45px; }
-        }
-
-        @media (max-width: 768px) {
-            .bg-overlay { backdrop-filter: blur(12px); }
-            
-            .dock-vertical {
-                left: 50%;
-                top: auto;
-                bottom: 30px;
-                transform: translateX(-50%);
-                flex-direction: row;
-                width: calc(100% - 40px);
-                max-width: 400px;
-                justify-content: space-evenly;
-                padding: 15px 10px;
-                animation: mobileSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            }
-
-            .dock-horizontal {
-                top: 20px;
-                right: 50%;
-                transform: translateX(50%);
-                width: max-content;
-                padding: 10px 20px;
-                animation: mobileSlideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            }
-
-            .custom-dropdown-container {
-                bottom: 110px;
-                right: 50%;
-                transform: translateX(50%);
-                animation: fadeIn 1s ease forwards;
-            }
-
-            .dropdown-list {
-                bottom: auto;
-                top: calc(100% + 15px);
-            }
-
-            .dock-item::after { display: none; }
-        }
-
-        @keyframes mobileSlideUp {
-            0% { opacity: 0; transform: translate(-50%, 50px); }
+        @keyframes slideFromTop {
+            0% { opacity: 0; transform: translate(-50%, -35px); }
             100% { opacity: 1; transform: translate(-50%, 0); }
         }
 
-        @keyframes mobileSlideDown {
-            0% { opacity: 0; transform: translate(50%, -50px); }
-            100% { opacity: 1; transform: translate(50%, 0); }
+        @keyframes slideFromBottom {
+            0% { opacity: 0; transform: translate(-50%, 35px); }
+            100% { opacity: 1; transform: translate(-50%, 0); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes slideFromLeft {
+            0% { opacity: 0; transform: translateY(-50%) translateX(-35px); }
+            100% { opacity: 1; transform: translateY(-50%) translateX(0); }
+        }
+
+        @keyframes viewportEntrance {
+            0% { opacity: 0; transform: scale(0.84) rotateX(8deg); }
+            100% { opacity: 1; transform: scale(1) rotateX(0); }
+        }
+
+        @keyframes audioPulse {
+            0%, 100% { box-shadow: 0 0 12px var(--neon-glow), inset 0 1px 0 rgba(255,255,255,0.08); }
+            50% { box-shadow: 0 0 24px var(--neon-glow), inset 0 1px 0 rgba(255,255,255,0.16); }
+        }
+
+        @media (max-width: 900px) {
+            body {
+                overflow-y: auto;
+            }
+
+            .workspace-stage {
+                padding-top: 100px;
+                padding-bottom: 240px;
+            }
+
+            .portal-card {
+                padding: 28px 50px;
+            }
+
+            .portal-title {
+                font-size: 30px;
+            }
+
+            .panel-dock-bottom {
+                width: 92%;
+                max-width: 460px;
+                bottom: 16px;
+            }
+
+            .panel-dock-bottom .glass-dock {
+                flex-wrap: wrap;
+                justify-content: center;
+                border-radius: 22px;
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .panel-dock-left {
+                top: auto;
+                bottom: 140px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: auto;
+                animation: slideFromBottom 1.2s var(--spring) forwards;
+            }
+
+            .panel-dock-left .glass-dock {
+                flex-direction: row;
+                border-radius: 22px;
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .split-bar {
+                display: none;
+            }
+
+            .dock-node {
+                width: 46px;
+                height: 46px;
+            }
+
+            .dock-node svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .island-matrix {
+                width: 92%;
+                justify-content: center;
+            }
+
+            .dock-vertical .dock-node .popup-tag,
+            .dock-horizontal .dock-node .popup-tag {
+                display: none !important;
+            }
         }
     </style>
 </head>
 <body>
-
+    <canvas id="fluid-mesh"></canvas>
     <div class="bg-overlay" id="bgOverlay"></div>
 
-    <nav class="glass-dock dock-horizontal">
-        <a href="https://github.com/vDgb123" class="dock-item" data-tooltip="GitHub"><img src="github.png" alt="github" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
-        <a href="https://www.tiktok.com/@dgbinhere" class="dock-item" data-tooltip="TikTok"><img src="tiktok.png" alt="tiktok" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
-        <a href="https://discord.com/users/1044501093486436404" class="dock-item" data-tooltip="Discord"><img src="dc.png" alt="discord" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
-        <a href="https://open.spotify.com/playlist/37i9dQZF1E4pcdtow1yIdx?si=99xxZZKcQhyyftf43OemMg" class="dock-item" data-tooltip="Spotify"><img src="spotify.png" alt="spotify" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
-        <a href="https://www.facebook.com/dogobo1805/" class="dock-item" data-tooltip="Facebook"><img src="fb.png" alt="facebook" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'"></a>
-    </nav>
-
-    <div class="glass-dock dock-vertical">
-        <a href="https://locket.cam/vdgb1805" class="dock-item" data-tooltip="Locket">
-            <img src="heart.png" alt="heart" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'">
-        </a>
-        <a href="#" class="dock-item" id="toggleMusic" data-tooltip="Play Audio">
-            🔇
-        </a>
-        <a href="https://vdgb123.github.io/vdgbsupport.github.io/" class="dock-item" data-tooltip="Support">
-            <img src="star.png" alt="star" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'">
-        </a>
-        <a href="https://vdgb123.github.io/loading/" class="dock-item" data-tooltip="Loading">
-            <img src="mb4.png" alt="mb4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siPjxwb2x5Z29uIHBvaW50cz0iMTIgMiA0IDIyIDIwIDIyIi8+PC9zdmc+'">
-        </a>
-    </div>
-
-    <div class="main-content">
-        <a href="https://guns.lol/vdgb_" target="_blank" class="button1">
-            Gia Bao Space 💞
-        </a>
-    </div>
-
-    <div class="custom-dropdown-container" id="dropdownContainer">
-        <div class="dropdown-header" id="dropdownHeader">
-            <span id="selectedText" data-bg="bruh.jpg">None</span>
+    <div class="island-matrix" id="islandContainer">
+        <div class="capsule-island" id="bgSelector">
+            <div class="island-vector">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+            </div>
+            <div class="island-label" id="selectedText" data-bg="bruh.jpg">None</div>
+            
+            <div class="island-menu" id="dropdownList">
+                <div class="menu-row" data-bg="volvo.jpg">Volvo</div>
+                <div class="menu-row" data-bg="mercedes.jpg">Mercedes</div>
+                <div class="menu-row" data-bg="audi.jpg">Audi</div>
+                <div class="menu-row" data-bg="bruh.jpg">None</div>
+            </div>
         </div>
-        <ul class="dropdown-list" id="dropdownList">
-            <li data-bg="volvo.jpg">Volvo</li>
-            <li data-bg="mercedes.jpg">Mercedes</li>
-            <li data-bg="audi.jpg">Audi</li>
-            <li data-bg="bruh.jpg">None</li>
-        </ul>
+
+        <div class="trigger-audio" id="toggleMusic">
+            <svg id="audio-off" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+            <svg id="audio-on" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+        </div>
+    </div>
+
+    <main class="workspace-stage">
+        <div class="magnetic-field" id="magneticArea">
+            <a href="https://guns.lol/vdgb_" target="_blank" class="portal-card" id="centerCard">
+                <div class="portal-mirror" id="cardGlare"></div>
+                <div class="portal-title">
+                    Gia Bao Space <span style="color: #ff6b8b;">💞</span>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <div class="panel-dock-left">
+        <nav class="glass-dock dock-vertical">
+            <a href="https://locket.cam/vdgb1805" target="_blank" class="dock-node stroke-only">
+                <div class="popup-tag">Locket</div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </a>
+            <a href="https://vdgb123.github.io/vdgbsupport.github.io/" target="_blank" class="dock-node stroke-only">
+                <div class="popup-tag">Support</div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </a>
+            <a href="https://vdgb123.github.io/loading/" target="_blank" class="dock-node stroke-only">
+                <div class="popup-tag">Loading</div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+            </a>
+        </nav>
+    </div>
+
+    <div class="panel-dock-bottom">
+        <nav class="glass-dock dock-horizontal" id="masterDock">
+            <a href="https://github.com/vDgb123" target="_blank" class="dock-node">
+                <div class="popup-tag">GitHub</div>
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@dgbinhere" target="_blank" class="dock-node">
+                <div class="popup-tag">TikTok</div>
+                <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.96-.5 3.94-1.63 5.51-1.35 1.9-3.5 3.06-5.83 3.16-2.5.12-5.06-.8-6.73-2.65-1.55-1.72-2.28-4.08-2.02-6.39.26-2.36 1.53-4.49 3.44-5.65 1.86-1.12 4.18-1.39 6.27-.85V12.5c-1.19-.24-2.45-.16-3.6.3-1.13.44-2.09 1.32-2.58 2.44-.54 1.25-.56 2.71-.05 3.96.47 1.15 1.48 2.06 2.68 2.37 1.37.36 2.92.2 4.15-.55 1.33-.8 2.16-2.26 2.22-3.83V.02z"/></svg>
+            </a>
+            <a href="https://discord.com/users/1044501093486436404" target="_blank" class="dock-node">
+                <div class="popup-tag">Discord</div>
+                <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
+            </a>
+            
+            <div class="split-bar"></div>
+            
+            <a href="https://open.spotify.com/playlist/37i9dQZF1E4pcdtow1yIdx?si=99xxZZKcQhyyftf43OemMg" target="_blank" class="dock-node">
+                <div class="popup-tag">Spotify</div>
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.84.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.239.54-.959.72-1.56.3z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/dogobo1805/" target="_blank" class="dock-node">
+                <div class="popup-tag">Facebook</div>
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+        </nav>
     </div>
 
     <audio id="bgAudio" src="Hẹn Hò Nhưng Không Yêu (Thazh x Đông Remix).mp3" loop></audio>
 
     <script>
-        const bodyElement = document.body;
-        const overlay = document.getElementById('bgOverlay');
-        const audioNode = document.getElementById('bgAudio');
-        const audioBtn = document.getElementById('toggleMusic');
-        const dropdownWrap = document.getElementById('dropdownContainer');
-        const dropdownHead = document.getElementById('dropdownHeader');
-        const dropdownItems = document.querySelectorAll('#dropdownList li');
-        const activeText = document.getElementById('selectedText');
+        'use strict';
 
-        let musicPlaying = false;
+        const dom = {
+            body: document.body,
+            overlay: document.getElementById('bgOverlay'),
+            audio: document.getElementById('bgAudio'),
+            audioBtn: document.getElementById('toggleMusic'),
+            audioOff: document.getElementById('audio-off'),
+            audioOn: document.getElementById('audio-on'),
+            islandContainer: document.getElementById('islandContainer'),
+            bgSelector: document.getElementById('bgSelector'),
+            selectedText: document.getElementById('selectedText'),
+            dropdownItems: document.querySelectorAll('.menu-row'),
+            centerCard: document.getElementById('centerCard'),
+            magneticArea: document.getElementById('magneticArea'),
+            cardGlare: document.getElementById('cardGlare'),
+            masterDock: document.getElementById('masterDock'),
+            dockNodes: document.querySelectorAll('.panel-dock-bottom .dock-node'),
+            canvas: document.getElementById('fluid-mesh')
+        };
 
-        const executeBgChange = (imgUrl) => {
-            const tempImg = new Image();
-            tempImg.src = imgUrl;
-            tempImg.onload = () => {
-                overlay.style.backdropFilter = 'blur(20px)';
+        let activeMusic = false;
+        let activeDropdown = false;
+
+        const updateStageBg = (imgUrl) => {
+            if (imgUrl === 'bruh.jpg') {
+                dom.overlay.style.backdropFilter = 'blur(14px)';
+                dom.body.style.backgroundImage = 'none';
+                return;
+            }
+            const instance = new Image();
+            instance.src = imgUrl;
+            instance.onload = () => {
+                dom.overlay.style.backdropFilter = 'blur(32px)';
+                dom.overlay.style.opacity = '0';
                 setTimeout(() => {
-                    bodyElement.style.backgroundImage = `url('${imgUrl}')`;
-                    overlay.style.backdropFilter = 'blur(8px)';
+                    dom.body.style.backgroundImage = `url('${imgUrl}')`;
+                    dom.overlay.style.opacity = '1';
+                    dom.overlay.style.backdropFilter = 'blur(8px)';
                 }, 400);
             };
         };
 
-        audioBtn.addEventListener('click', (ev) => {
-            ev.preventDefault();
-            if (musicPlaying) {
-                audioNode.pause();
-                // Emojis default to browser/OS style, may need styling if they are too light
-                audioBtn.textContent = '🔇';
-                audioBtn.setAttribute('data-tooltip', 'Play Audio');
+        dom.audioBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (activeMusic) {
+                dom.audio.pause();
+                dom.audioOff.style.display = 'block';
+                dom.audioOn.style.display = 'none';
+                dom.audioBtn.classList.remove('active-track');
             } else {
-                audioNode.play().catch(e => console.warn("Autoplay blocked:", e));
-                audioBtn.textContent = '🔊';
-                audioBtn.setAttribute('data-tooltip', 'Pause Audio');
+                dom.audio.play().catch(err => console.warn(err));
+                dom.audioOff.style.display = 'none';
+                dom.audioOn.style.display = 'block';
+                dom.audioBtn.classList.add('active-track');
             }
-            musicPlaying = !musicPlaying;
+            activeMusic = !activeMusic;
         });
 
-        dropdownHead.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            dropdownWrap.classList.toggle('active');
+        dom.bgSelector.addEventListener('click', (e) => {
+            e.stopPropagation();
+            activeDropdown = !activeDropdown;
+            dom.islandContainer.classList.toggle('active', activeDropdown);
         });
 
-        dropdownItems.forEach(node => {
-            node.addEventListener('click', (ev) => {
-                ev.stopPropagation();
-                const targetBg = node.getAttribute('data-bg');
-                activeText.textContent = node.textContent;
-                activeText.setAttribute('data-bg', targetBg);
-                executeBgChange(targetBg);
-                dropdownWrap.classList.remove('active');
+        dom.dropdownItems.forEach(row => {
+            row.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const targetBg = row.getAttribute('data-bg');
+                dom.selectedText.textContent = row.textContent;
+                dom.selectedText.setAttribute('data-bg', targetBg);
+                updateStageBg(targetBg);
+                activeDropdown = false;
+                dom.islandContainer.classList.remove('active');
             });
         });
 
-        document.addEventListener('click', (ev) => {
-            if (!dropdownWrap.contains(ev.target)) {
-                dropdownWrap.classList.remove('active');
+        document.addEventListener('click', (e) => {
+            if (activeDropdown && !dom.islandContainer.contains(e.target)) {
+                activeDropdown = false;
+                dom.islandContainer.classList.remove('active');
             }
         });
 
-        const initBg = activeText.getAttribute('data-bg');
-        if (initBg) executeBgChange(initBg);
+        const initialBg = dom.selectedText.getAttribute('data-bg');
+        if (initialBg) updateStageBg(initialBg);
+
+        dom.magneticArea.addEventListener('mousemove', (e) => {
+            const boundary = dom.centerCard.getBoundingClientRect();
+            const coordX = e.clientX - boundary.left - boundary.width / 2;
+            const coordY = e.clientY - boundary.top - boundary.height / 2;
+            
+            const dampener = 0.08;
+            const pitch = -coordY * dampener;
+            const yaw = coordX * dampener;
+
+            dom.centerCard.style.transform = `scale(1.04) rotateX(${pitch}deg) rotateY(${yaw}deg)`;
+            
+            const positionX = (e.clientX - boundary.left) / boundary.width * 100;
+            const positionY = (e.clientY - boundary.top) / boundary.height * 100;
+            dom.cardGlare.style.background = `radial-gradient(circle at ${positionX}% ${positionY}%, rgba(255,255,255,0.25), transparent 65%)`;
+            dom.cardGlare.style.opacity = '1';
+        });
+
+        dom.magneticArea.addEventListener('mouseleave', () => {
+            dom.centerCard.style.transform = `scale(1) rotateX(0deg) rotateY(0deg)`;
+            dom.cardGlare.style.opacity = '0';
+        });
+
+        dom.masterDock.addEventListener('mousemove', (e) => {
+            if (window.innerWidth <= 900) return;
+            dom.dockNodes.forEach(node => {
+                const boundary = node.getBoundingClientRect();
+                const centerPoint = boundary.left + boundary.width / 2;
+                const distanceVector = Math.abs(e.clientX - centerPoint);
+                
+                const scope = 160;
+                const lowScale = 1;
+                const highScale = 1.35;
+                
+                let dynamicScale = lowScale;
+                let offsetElevation = 0;
+
+                if (distanceVector < scope) {
+                    const ratio = 1 - (distanceVector / scope);
+                    dynamicScale = lowScale + (highScale - lowScale) * Math.pow(ratio, 2);
+                    offsetElevation = 14 * Math.pow(ratio, 2);
+                }
+
+                node.style.transform = `scale(${dynamicScale}) translateY(-${offsetElevation}px)`;
+                node.style.zIndex = Math.round(dynamicScale * 12);
+            });
+        });
+
+        dom.masterDock.addEventListener('mouseleave', () => {
+            dom.dockNodes.forEach(node => {
+                node.style.transform = `scale(1) translateY(0)`;
+                node.style.zIndex = 1;
+            });
+        });
+
+        const surface = dom.canvas.getContext('2d');
+        let viewW, viewH, matrixArray = [];
+
+        const syncCanvasBounds = () => {
+            viewW = dom.canvas.width = window.innerWidth;
+            viewH = dom.canvas.height = window.innerHeight;
+        };
+
+        class FluidNode {
+            constructor() {
+                this.x = Math.random() * viewW;
+                this.y = Math.random() * viewH;
+                this.mx = (Math.random() - 0.5) * 0.4;
+                this.my = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2 + 0.6;
+                this.alphaDensity = Math.random() * 0.4 + 0.15;
+            }
+
+            advance() {
+                this.x += this.mx;
+                this.y += this.my;
+
+                if (this.x < 0) this.x = viewW;
+                if (this.x > viewW) this.x = 0;
+                if (this.y < 0) this.y = viewH;
+                if (this.y > viewH) this.y = 0;
+            }
+
+            render() {
+                surface.beginPath();
+                surface.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                surface.fillStyle = `rgba(138, 92, 246, ${this.alphaDensity})`;
+                surface.fill();
+            }
+        }
+
+        const compileMatrix = () => {
+            matrixArray = [];
+            const allocation = Math.min(window.innerWidth / 12, 90);
+            for (let i = 0; i < allocation; i++) {
+                matrixArray.push(new FluidNode());
+            }
+        };
+
+        const renderLoop = () => {
+            surface.clearRect(0, 0, viewW, viewH);
+            
+            for (let i = 0; i < matrixArray.length; i++) {
+                matrixArray[i].advance();
+                matrixArray[i].render();
+                
+                for (let j = i + 1; j < matrixArray.length; j++) {
+                    const vectorX = matrixArray[i].x - matrixArray[j].x;
+                    const vectorY = matrixArray[i].y - matrixArray[j].y;
+                    const totalSpace = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
+                    
+                    if (totalSpace < 130) {
+                        surface.beginPath();
+                        surface.moveTo(matrixArray[i].x, matrixArray[i].y);
+                        surface.lineTo(matrixArray[j].x, matrixArray[j].y);
+                        surface.strokeStyle = `rgba(138, 92, 246, ${0.12 * (1 - totalSpace / 130)})`;
+                        surface.lineWidth = 0.6;
+                        surface.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(renderLoop);
+        };
+
+        window.addEventListener('resize', () => {
+            syncCanvasBounds();
+            compileMatrix();
+        });
+
+        syncCanvasBounds();
+        compileMatrix();
+        renderLoop();
     </script>
 </body>
 </html>
